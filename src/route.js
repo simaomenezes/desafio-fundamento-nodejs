@@ -47,12 +47,19 @@ export const routes = [
                 return res.writeHead(500).end(JSON.stringify("Title or Description need be write"))
             }
 
-            database.update('tasks', id, {
+            const rt = database.update('tasks', id, {
                 title, 
                 description, 
                 updated_at: new Date()
             })
-            return res.writeHead(204).end()
+
+            console.log(rt)
+
+            if(rt){
+                return res.writeHead(204).end()
+            } else {
+                return res.writeHead(500).end(JSON.stringify("record not exist"))
+            }
         }        
     },
     {
@@ -60,8 +67,13 @@ export const routes = [
         path: buildRoutePath('/tasks/:id'),
         handler: (req, res) => {
             const { id } = req.params
-            database.delete("tasks", id)
-            return res.writeHead(204).end()
+            const rt = database.delete("tasks", id)
+
+            if(rt){
+                return res.writeHead(204).end()
+            } else {
+                return res.writeHead(500).end(JSON.stringify("record not exist"))
+            }
         }
     }
 ]
