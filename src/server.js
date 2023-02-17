@@ -1,36 +1,27 @@
-import { randomUUID } from "node:crypto"
 import http from "node:http"
 import { json } from "./middlewares/json.js"
+import { routes } from "./route.js"
 
-const tasks = []
+
 const server = http.createServer(async (req, res) => {
-    res.setHeader('Content-type', 'application/json')
-    const { method, url } = req
-
+    const { method, url } = req;
     await json(req, res)
 
-    console.log(req.body)
+    const route = routes.find(route => {
+        return route.method === method && route.path === url
+    })
 
-    if(method === "POST" && url === "/tasks") {
+    console.log(route)
 
-        const { title, decription } = req.body
-
-        const task = {
-            id: randomUUID(),
-            title,
-            decription,
-            created_at: new Date()
-        }
-        tasks.push(task)
-
-        return res.writeHead(201).end()
+    if(route) {
+        const routeParams = req.url.match(route.path)
+        const { ...params } = routeParams
+        req.params = params
+        return route.handler(req, res)
     }
 
-    if(method === "GET" && url === "/tasks") {        
-        return res.writeHead(200).end(JSON.stringify(tasks))
-    }
 
-    return res.end("sdsd")
+    return res.end("Desafio - Fundamentos NodeJS")
 
 })
 
