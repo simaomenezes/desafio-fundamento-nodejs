@@ -1,0 +1,21 @@
+{
+  "name": "desafio-fundamento-nodejs",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Desafio: Fundamentos do Node.js Nesse desafio você reforçará os conceitos do Node.js ensinados nesse módulo e irá se desafiar para implementar uma funcionalidade muito utilizada em aplicações reais.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simaomenezes/desafio-fundamento-nodejs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/simaomenezes/desafio-fundamento-nodejs/issues"
+  },
+  "homepage": "https://github.com/simaomenezes/desafio-fundamento-nodejs#readme"
+}
