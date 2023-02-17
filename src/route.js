@@ -17,12 +17,16 @@ export const routes = [
         method: 'POST',
         path: buildRoutePath('/tasks'),
         handler: (req, res) => {
-            const { title, decription, completed_at, updated_at } = req.body
+            const { title, description, completed_at, updated_at } = req.body
+
+            if(title === "" || description === "") {
+                return res.writeHead(500).end(JSON.stringify("Title or Description need be write"))
+            }
 
             const task = {
                 id: randomUUID(),
                 title,
-                decription,
+                description,
                 created_at: new Date(),
                 completed_at,
                 updated_at
@@ -36,14 +40,16 @@ export const routes = [
         method: 'PUT',
         path: buildRoutePath('/tasks/:id'),
         handler: (req, res) => {
-            const { title, decription } = req.body
+            const { title, description } = req.body
             const { id } = req.params
 
-            console.log("id:" , id)
+            if(title === "" || description === "") {
+                return res.writeHead(500).end(JSON.stringify("Title or Description need be write"))
+            }
 
             database.update('tasks', id, {
                 title, 
-                decription, 
+                description, 
                 updated_at: new Date()
             })
             return res.writeHead(204).end()
