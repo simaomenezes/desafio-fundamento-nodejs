@@ -12,5 +12,5 @@ export function buildRoutePath(path) {
 
     //console.log("pathRegex:", pathRegex)
 
-    return pathWithParams
+    return pathRegex
 }

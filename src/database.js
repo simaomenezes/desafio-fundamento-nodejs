@@ -32,6 +32,32 @@ export class Database {
 
     }
 
+    update(table, id, data) {
+        const rowIndex = this.#database[table].findIndex(row => row.id === id)
+        if(rowIndex > -1) {
+            const { created_at, completed_at } = this.#database[table][rowIndex]
+            const { title, description, updated_at } = data
+            const changeData = {
+                id,
+                title,
+                description, 
+                created_at,
+                completed_at,
+                updated_at
+            }
+            this.#database[table][rowIndex] = { id, ...changeData}
+            this.#persist()
+        }
+    }
+
+    delete(table, id) {
+        const rowIndex = this.#database[table].findIndex(row => row.id === id)
+        if(rowIndex > -1) {
+            this.#database[table].splice(rowIndex, 1)
+            this.#persist()
+        }
+    }
+
     #persist() {
         fs.writeFile(databasePath, JSON.stringify(this.#database))
     }
