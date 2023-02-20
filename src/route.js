@@ -17,6 +17,7 @@ export const routes = [
         method: 'POST',
         path: buildRoutePath('/tasks'),
         handler: (req, res) => {
+            
             const { title, description, completed_at, updated_at } = req.body
 
             if(title === "" || description === "") {

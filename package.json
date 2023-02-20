@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/simaomenezes/desafio-fundamento-nodejs/issues"
   },
-  "homepage": "https://github.com/simaomenezes/desafio-fundamento-nodejs#readme"
+  "homepage": "https://github.com/simaomenezes/desafio-fundamento-nodejs#readme",
+  "dependencies": {
+    "csv": "^6.2.7"
+  }
 }
