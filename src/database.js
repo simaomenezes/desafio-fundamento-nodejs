@@ -15,9 +15,17 @@ export class Database {
             })
     }
 
-    select(table) {
-        const data = this.#database[table]
-        return data
+    select(table, id) {
+        let rowIndex = undefined
+        let data = undefined
+        if(id) {
+            rowIndex = this.#database[table].findIndex(row => row.id === id)
+        } else {
+            return data = this.#database[table]
+        }
+        if(rowIndex > -1) {
+            return data = this.#database[table][rowIndex]
+        }
     }
 
     insert(table, data) {
@@ -33,19 +41,11 @@ export class Database {
     }
 
     update(table, id, data) {
+        console.log("data: ", data)
         const rowIndex = this.#database[table].findIndex(row => row.id === id)
         if(rowIndex > -1) {
-            const { created_at, completed_at } = this.#database[table][rowIndex]
-            const { title, description, updated_at } = data
-            const changeData = {
-                id,
-                title,
-                description, 
-                created_at,
-                completed_at,
-                updated_at
-            }
-            this.#database[table][rowIndex] = { id, ...changeData}
+            const row = this.#database[table][rowIndex]
+            this.#database[table][rowIndex] = { id, ...row, ...data}
             this.#persist()
             return true
         } else {

@@ -53,13 +53,25 @@ export const routes = [
                 updated_at: new Date()
             })
 
-            console.log(rt)
-
             if(rt){
                 return res.writeHead(204).end()
             } else {
                 return res.writeHead(500).end(JSON.stringify("record not exist"))
             }
+        }        
+    },
+    {
+        method: 'PATCH',
+        path: buildRoutePath('/tasks/:id/complete'),
+        handler: (req, res) => {
+            const { id } = req.params
+            
+            const task = database.select("tasks", id)
+            const { completed_at } = task
+            database.update("tasks", id, {completed_at: !!completed_at ? null : new Date()})
+
+            return res.writeHead(201).end(JSON.stringify("PATCH OK"))
+            
         }        
     },
     {
